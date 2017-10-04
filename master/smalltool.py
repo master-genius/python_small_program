@@ -1,6 +1,7 @@
 
 import time
 import platform
+import os
 
 def cpu_runtime(func):
     def wrapper(*args):
@@ -41,4 +42,28 @@ def is_windows():
         return 1
     else:
         return 0
+
+def time_loop():
+    week_map = {
+        'w0':'星期一',
+        'w1':'星期二',
+        'w2':'星期三',
+        'w3':'星期四',
+        'w4':'星期五',
+        'w5':'星期六',
+        'w6':'星期日'
+    }
+    try:
+        clear_ins = 'clear'
+        if is_windows():
+            clear_ins = 'cls'
+        while True:
+            t = time.localtime()
+            print("%d:%d:%d %s'%d-%d-%d"%(t.tm_hour,t.tm_min,t.tm_sec,week_map['w'+str(t.tm_wday)],t.tm_year,t.tm_mon,t.tm_mday))
+            time.sleep(1)
+            os.system(clear_ins)
+    except OSError as e:
+        print(e)
+    except KeyboardInterrupt:
+        print("bey!\n")
 
